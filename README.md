@@ -128,6 +128,9 @@ class TriRectangle(Triangle):
     def __init__(self, vertices: list):
         super().__init__(vertices)
 ```
+
+
+
 ejercicio 2
     
     def compute_inner_angles(self):
