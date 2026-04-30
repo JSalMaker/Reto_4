@@ -134,7 +134,7 @@ class TriRectangle(Triangle):
 ```
 
 
-El ejercicio 2 fue como una reutilizacion de uno de los codigos usados en el reto 3 visto anterior mente, este fue el codigo del restaurante. El reto pedia implementar principios del encapsulamiento al ejercico, como podria ser el uso de los setters y getters, tambien el uso de otra clase llamada payment, la cual nos permite ver con que modo de pago fue cancelado la cuenta del restaurante, esto por medio la creacion de otra clase y de entregarle los valores como normalmente se haria, por ultimo se implemento un descuento si es que compra plato fuerte, este descuento se aplica a las bebidas en este caso como se va a ver en el ejercicio acontinuacion.
+El ejercicio 2 fue como una reutilización de uno de los códigos usados en el reto 3 visto anterior mente, este fue el código del restaurante. El reto pedía implementar principios del encapsulamiento al ejercicio, como podría ser el uso de los setters y getters, también el uso de otra clase llamada payment, la cual nos permite ver con qué modo de pago fue cancelado la cuenta del restaurante, esto por medio la creación de otra clase y de entregarle los valores como normalmente se haría, por último se implementó un descuento si es que compra plato fuerte, este descuento se aplica a las bebidas en este caso como se va a ver en el ejercicio a continuación.
 
 
 ```python
@@ -275,8 +275,8 @@ mi_orden.AgregarOrden(Coca_cola_l)
 mi_orden.AgregarOrden(chicha)
 mi_orden.resivo("Tarjeta", "Visa-4532")
 
+```
+
 
 ```
-    
-    def compute_inner_angles(self):
-        return super().compute_inner_angles()
+    per().compute_inner_angles()
