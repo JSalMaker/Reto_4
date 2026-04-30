@@ -277,4 +277,7 @@ mi_orden.resivo("Tarjeta", "Visa-4532")
 
 ```
 
-   per().compute_inner_angles()
+
+
+
+   ).compute_inner_angles()
