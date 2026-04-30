@@ -274,10 +274,6 @@ mi_orden.AgregarOrden(Condor_l)
 mi_orden.AgregarOrden(Coca_cola_l)
 mi_orden.AgregarOrden(chicha)
 mi_orden.resivo("Tarjeta", "Visa-4532")
-
 ```
 
-
-
-
-   ).compute_inner_angles()
+```
