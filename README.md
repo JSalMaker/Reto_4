@@ -134,7 +134,149 @@ class TriRectangle(Triangle):
 ```
 
 
-El ejercicio 2 fue como una reutilizacion de uno de los codigos usados en el reto 3 visto anterior mente, este fue el codigo del restaurante. El reto pedia implementar
+El ejercicio 2 fue como una reutilizacion de uno de los codigos usados en el reto 3 visto anterior mente, este fue el codigo del restaurante. El reto pedia implementar principios del encapsulamiento al ejercico, como podria ser el uso de los setters y getters, tambien el uso de otra clase llamada payment, la cual nos permite ver con que modo de pago fue cancelado la cuenta del restaurante, esto por medio la creacion de otra clase y de entregarle los valores como normalmente se haria, por ultimo se implemento un descuento si es que compra plato fuerte, este descuento se aplica a las bebidas en este caso como se va a ver en el ejercicio acontinuacion.
+
+
+```python
+class MenuItem:
+    def __init__(self, nombre: str, precio: int):
+        self._nombre = nombre
+        self._precio = precio
+    def get_nombre(self): 
+        return self._nombre
+    def set_nombre(self, nombre): 
+        self._nombre = nombre
+    def get_precio(self): 
+        return self._precio
+    def set_precio(self, precio): 
+        self._precio = precio
+    def CalcularTotal(self, cantidad=1):
+        return self._precio * cantidad
+
+class Bebida(MenuItem):
+    def __init__(self, nombre: str, precio: int, marca: str, tamaño: str):
+        super().__init__(nombre, precio)
+        self._marca = marca
+        self._tamaño = tamaño
+    def get_marca(self): 
+        return self._marca
+    def set_marca(self, m): 
+        self._marca = m
+    def get_tamaño(self): 
+        return self._tamaño
+    def set_tamaño(self, t): 
+        self._tamaño = t
+
+class Aperitivo(MenuItem):
+    def __init__(self, nombre: str, precio: int, porcion=1):
+        super().__init__(nombre, precio)
+        self._porcion = porcion
+    def get_porcion(self): 
+        return self._porcion
+    def set_porcion(self, p): 
+        self._porcion = p
+
+class PlatoPrincipal(MenuItem):
+    def __init__(self, nombre: str, precio: int, Proteina: str, Granos: str, Vegetales: str):
+        super().__init__(nombre, precio)
+        self._Proteina = Proteina
+        self._Granos = Granos
+        self._Vegetales = Vegetales
+    def get_proteina(self): 
+        return self._Proteina
+    def set_proteina(self, p): 
+        self._Proteina = p
+
+class Payment:
+    def __init__(self, total, metodo="Efectivo", detalle=None):
+        self._total = total
+        self._metodo = metodo
+        self._detalle = detalle
+    def get_total(self): 
+        return self._total
+    def get_metodo(self): 
+        return self._metodo
+    def get_detalle(self): 
+        return self._detalle
+    def pagar(self):
+        if self._metodo == "Tarjeta":
+            print("Pago de ", self._total, "procesado con Tarjeta", self._detalle,)
+        else:
+            print("Pago de ", self._total, "realizado en ", self._metodo)
+
+class Orden:
+    def __init__(self):
+        self.items = []
+
+    def AgregarOrden(self, item):
+        self.items.append(item)
+    
+    def Calcular_Plata(self):
+        total = 0
+        hay_plato_fuerte = any(isinstance(i, PlatoPrincipal) for i in self.items)
+        
+        for item in self.items:
+            precio_actual = item.get_precio()
+            if hay_plato_fuerte and isinstance(item, Bebida):
+                precio_actual *= 0.80
+            
+            total += precio_actual
+    
+        if total > 50000:
+            total *= 0.90
+    
+        return total 
+
+    def resivo(self, metodo=str, detalle=str):
+        print("    Recibo Restaurante    ")
+        for item in self.items:
+            print(item.get_nombre(), "=" ,item.get_precio())
+        total_final = self.Calcular_Plata()
+        print("Total:", total_final)
+        pago = Payment(total_final, metodo, detalle)
+        pago.pagar()
+
+
+#Bebidas
+Coca_cola_s = Bebida("Coca-cola", 2500, "Coca-Cola", "350ml")
+Coca_cola_m = Bebida("Coca-cola", 4500, "Coca-Cola", "750ml")
+Coca_cola_l = Bebida("Coca-cola", 8000, "Coca-Cola", "1500ml")
+Pepsi_s = Bebida("Pepsi", 2000, "Postobon", "350ml")
+Pepsi_m = Bebida("Pepsi", 4000, "Postobon", "750ml")  
+Pepsi_l = Bebida("Pepsi", 6000, "Postobon", "1500ml")
+Colombiana_m = Bebida("Colombiana", 4000, "Postobon", "750ml")
+Condor_l = Bebida("Kola condor", 5000, "Gaseosas Condor", "2l")
+
+#Aperitivos
+chicha = Aperitivo("Chicharron", 6000, 6)
+platanito = Aperitivo("Platanos asados", 5500, 4)
+cebolla = Aperitivo("Aros de cebolla", 10000, 8)
+
+#Plato fuerte
+Pollo_arroz = PlatoPrincipal("Pollo ahumado con arroz", 16000, "Pollo",
+                         "Arroz", "Brocoli")
+Pollo_Lente = PlatoPrincipal("Pollo con lentejas", 19000, "Pollo",
+                         "Lentejas", "Pepino con tomate")
+Pollo_frijo = PlatoPrincipal("Pollo con especialidad de la casa", 25000, "Pollo",
+                         "Frijoles con carne", "Coliflor ahumado")
+Carne_arroz = PlatoPrincipal("Carne asada con arroz", 16000, "Carne",
+                         "Arroz", "Brocoli")
+Carne_Lente = PlatoPrincipal("Carnecon lentejas", 19000, "Carne",
+                         "Lentejas", "Pepino con tomate")
+Carne_frijo = PlatoPrincipal("Carne con especialidad de la casa", 25000, "Carne",
+                         "Frijoles picantes", "Coliflor ahumado")
+conejo = PlatoPrincipal("Especialidad de la casa", 40000, "Conejo",
+                    "Frijoles picantes con carne", "Coliflor y brocoli")
+
+mi_orden = Orden()
+mi_orden.AgregarOrden(Carne_arroz)
+mi_orden.AgregarOrden(Condor_l)
+mi_orden.AgregarOrden(Coca_cola_l)
+mi_orden.AgregarOrden(chicha)
+mi_orden.resivo("Tarjeta", "Visa-4532")
+
+
+```
     
     def compute_inner_angles(self):
         return super().compute_inner_angles()
