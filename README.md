@@ -134,7 +134,7 @@ class TriRectangle(Triangle):
 ```
 
 
-ejercicios 
+El ejercicio 2 fue como una reutilizacion de uno de los codigos usados en el reto 3 visto anterior mente, este fue el codigo del restaurante. El reto pedia implementar
     
     def compute_inner_angles(self):
         return super().compute_inner_angles()
